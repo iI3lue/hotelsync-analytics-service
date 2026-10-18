@@ -42,7 +42,7 @@ Fechas en formato `YYYY-MM-DD`.
 
 Tablas propias: `OccupancyDaily`, `KpiByProperty`, `EventOutbox`.
 
-Migraciones en `prisma/migrations` (1). No requiere seed: los datos se derivan de las réplicas mediante el ETL.
+Migraciones en `prisma/migrations` (1). En operación los datos se derivan de las réplicas mediante el ETL; además hay un **seed opcional** (`npm run seed`) que escribe métricas sintéticas idempotentes por `(hotel_id, date)` (override con `SEED_HOTEL_ID` y `SEED_DAYS`) para demos sin ETL.
 
 ## ETL
 
@@ -86,6 +86,7 @@ Copiar `.env.example` a `.env` y completar los valores.
 npm install
 cp .env.example .env
 npx prisma migrate deploy
+npm run seed                # opcional: métricas demo (14 días)
 npm run dev                 # http://localhost:3011
 npm run etl -- --from=2026-10-01 --to=2026-10-15
 ```
@@ -113,6 +114,6 @@ pg_restore --clean --if-exists -d "$DATABASE_URL" analytics_db.dump
 
 ```
 src/{routes,controllers,services,validators,middleware,lib,jobs}
-prisma/{schema.prisma,migrations}
+prisma/{schema.prisma,migrations,seed.ts}
 tests/
 ```
