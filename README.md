@@ -1,10 +1,16 @@
 # HotelSync — Analytics Service
 
+[![CI](https://github.com/iI3lue/hotelsync-analytics-service/actions/workflows/ci.yml/badge.svg)](https://github.com/iI3lue/hotelsync-analytics-service/actions/workflows/ci.yml)
+
 Microservicio de revenue management de HotelSync: calcula ocupación, ADR, RevPAR y pronóstico a partir de réplicas de **solo lectura** de Booking y Property, sin joins entre bases.
 
 - **Producción:** https://hotelsync-analytics-service.onrender.com
 - **Puerto local:** 3011
 - **Base de datos:** `analytics_db` (PostgreSQL 16) + réplicas read-only de `booking_db` y `property_db`
+
+## CI reutilizable
+
+El pipeline se consume desde `iI3lue/hotelsync-loyalty-service/.github/workflows/node-service-ci.yml@ci-v1`. El caller solo declara `service_name`, `db_name` y `fail_on_purpose`; la contraseña de PostgreSQL viaja como el secreto `CI_POSTGRES_PASSWORD` y no se guarda en el repositorio.
 
 ## Responsabilidad
 
