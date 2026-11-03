@@ -1,4 +1,5 @@
 import express from "express";
+import { requireGateway } from "./middleware/gateway";
 import { errorHandler } from "./middleware/error-handler";
 import { metricsRouter } from "./routes/metrics";
 import { dashboardRouter } from "./routes/dashboard";
@@ -6,6 +7,7 @@ import { startOutboxDispatcher } from "./lib/outbox";
 import { startEtlScheduler } from "./jobs/scheduler";
 
 const app = express();
+app.use(requireGateway);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
